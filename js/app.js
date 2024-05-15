@@ -17,17 +17,17 @@ function insertTodo() {
         status: false
     }
 
-    // Clear data from input
-    todoValue = ''
-    // To focus mouse cursor on input
-    input.focus()
-
 
     // Add created object into todo's array
     todoArray.push(newTodoObject)
     // Add todo's array into local storage
     addToLocalStorage(todoArray)
 
+
+    // Clear data from input
+    input.value = ''
+    // To focus mouse cursor on input
+    input.focus()
 
 }
 
@@ -39,6 +39,10 @@ function addToLocalStorage(todoItem) {
 }
 
 
+function clearAllTodo() {
+    localStorage.removeItem('todoData')
+}
 
 
 addButton.addEventListener('click', insertTodo)
+clearButton.addEventListener('click', clearAllTodo)
