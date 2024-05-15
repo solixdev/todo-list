@@ -8,26 +8,35 @@ let todoArray = []
 // Insert todo's into DOM and browser local storage 
 function insertTodo() {
 
+    let todoValue = input.value
+
     // Create a todo object to insert into array
     let newTodoObject = {
         id: todoArray.length + 1,
-        name: 'Todo',
-        value: input.value,
+        value: todoValue,
         status: false
     }
 
     // Clear data from input
-    input.value = ''
+    todoValue = ''
     // To focus mouse cursor on input
     input.focus()
 
 
     // Add created object into todo's array
     todoArray.push(newTodoObject)
+    // Add todo's array into local storage
+    addToLocalStorage(todoArray)
 
 
 }
 
+
+
+// Add todo's array to local storage function
+function addToLocalStorage(todoItem) {
+    localStorage.setItem('todoData', JSON.stringify(todoItem))
+}
 
 
 
