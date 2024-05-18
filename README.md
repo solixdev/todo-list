@@ -3,7 +3,7 @@ This is a simple **Todo Web App** which you can insert todo's in it.
 
 ## Files
 
-This project includes a index file , simple css file and a main javaScript file that it manage our project and it is head of this project.
+This project includes a index file , simple css file and a main javaScript file that it manage our project and that is head of this project.
 
 ## Features :
 Todo Web App contains following features :
