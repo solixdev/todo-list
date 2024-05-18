@@ -63,6 +63,17 @@ function insertTodo() {
 }
 
 
+// ---------- Insert todo's into DOM and browser local storage with ENTER key
+function insertTodoWithKey(e) {
+
+
+    if (e.code === 'Enter') {
+        insertTodo()
+    }
+
+}
+
+
 // ---------- Add todo's into DOM function
 function addToDOM(todoArray) {
 
@@ -170,5 +181,6 @@ function clearAllTodo() {
 
 
 window.addEventListener('load', loadData)
+input.addEventListener('keydown', insertTodoWithKey)
 addButton.addEventListener('click', insertTodo)
 clearButton.addEventListener('click', clearAllTodo)
