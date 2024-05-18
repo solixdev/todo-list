@@ -96,6 +96,7 @@ function addToDOM(todoArray) {
         newTodoDeleteBtn = document.createElement('button')
         newTodoDeleteBtn.classList = 'btn btn-danger'
         newTodoDeleteBtn.innerHTML = 'Delete'
+        newTodoDeleteBtn.setAttribute('onclick', 'deleteTodoElement(' + todo.id + ')')
 
         // Append created elements into li element
         newTodoLi.append(newTodoTitle, newTodoCompleteBtn, newTodoDeleteBtn)
@@ -110,7 +111,6 @@ function addToDOM(todoArray) {
 function addToLocalStorage(todoItem) {
     localStorage.setItem('todoData', JSON.stringify(todoItem))
 }
-
 
 
 // ---------- Edit todo's status function
@@ -129,11 +129,35 @@ function editTodoElement(todoId) {
         }
     })
 
-    // Refresh todo status in local storage
+    // Refresh todo status in local storage and DOM
     addToLocalStorage(todoArray)
     addToDOM(todoArray)
 }
 
+
+// ---------- Delete todo function from DOM and local storage
+function deleteTodoElement(todoId) {
+
+    // Load and insert data from local storage in variable
+    let loadedData = JSON.parse(localStorage.getItem('todoData'))
+
+    // Set fetched data into todoArray
+    todoArray = loadedData
+
+    // Find and return selected todo's id which is equal by clicked delete todo's button
+    let findIndex = todoArray.findIndex(item => {
+        return todoId === item.id
+    })
+
+    // Select found index and delete that form todoArray
+    todoArray.splice(findIndex, 1)
+
+
+    // Refresh todo status in local storage and DOM
+    addToLocalStorage(todoArray)
+    addToDOM(todoArray)
+
+}
 
 
 // ---------- Clear all data form local storage and Dom
