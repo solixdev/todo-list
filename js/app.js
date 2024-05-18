@@ -86,10 +86,10 @@ function addToDOM(todoArray) {
         newTodoCompleteBtn.innerHTML = 'Complete'
         // Set edit function to change todo's status
         newTodoCompleteBtn.setAttribute('onclick', 'editTodoElement(' + todo.id + ')')
-
+        // To check todo's status and change button title to complete or unComplete
         if (todo.status) {
             newTodoLi.className = 'uncompleted well'
-            newTodoTitle.innerHTML = 'UnComplete'
+            newTodoCompleteBtn.innerHTML = 'UnComplete'
         }
 
         // Create delete button for todo
@@ -123,7 +123,7 @@ function editTodoElement(todoId) {
     todoArray = loadedData
 
     todoArray.forEach(item => {
-        // If that todo which clicked on it that's status is false, it changes status to true and vise versa
+        // If that todo which clicked on it that's status is false, it changes status to true and vice versa
         if (todoId === item.id) {
             item.status = !item.status
         }
