@@ -5,7 +5,7 @@ const todoContainer = document.getElementById('todoList')
 
 let todoArray = []
 
-// Load data when app is running from local storage
+// ---------- Load data when app is running from local storage
 function loadData() {
     let data = localStorage.getItem('todoData')
 
@@ -24,7 +24,7 @@ function loadData() {
 }
 
 
-// Insert todo's into DOM and browser local storage 
+// ---------- Insert todo's into DOM and browser local storage 
 function insertTodo() {
 
     // Define a variable for insert input value in it and delete any fake and whitespace from it
@@ -63,6 +63,7 @@ function insertTodo() {
 }
 
 
+// ---------- Add todo's into DOM function
 function addToDOM(todoArray) {
 
     let newTodoLi, newTodoTitle, newTodoCompleteBtn, newTodoDeleteBtn
@@ -82,11 +83,13 @@ function addToDOM(todoArray) {
         // Create complete/unComplete button for todo
         newTodoCompleteBtn = document.createElement('button')
         newTodoCompleteBtn.classList = 'btn btn-success'
-        // Check complete button status which it's true or false to define this button value
-        if (todo.status === false) {
-            newTodoCompleteBtn.innerHTML = 'Complete'
-        } else {
-            newTodoCompleteBtn.innerHTML = 'UnComplete'
+        newTodoCompleteBtn.innerHTML = 'Complete'
+        // Set edit function to change todo's status
+        newTodoCompleteBtn.setAttribute('onclick', 'editTodoElement(' + todo.id + ')')
+
+        if (todo.status) {
+            newTodoLi.className = 'uncompleted well'
+            newTodoTitle.innerHTML = 'UnComplete'
         }
 
         // Create delete button for todo
@@ -103,21 +106,43 @@ function addToDOM(todoArray) {
 }
 
 
-// Add todo's array to local storage function
+// ---------- Add todo's array to local storage function
 function addToLocalStorage(todoItem) {
     localStorage.setItem('todoData', JSON.stringify(todoItem))
 }
 
 
-// Clear all data form local storage and Dom
+
+// ---------- Edit todo's status function
+function editTodoElement(todoId) {
+
+    // Load and insert data from local storage in variable
+    let loadedData = JSON.parse(localStorage.getItem('todoData'))
+
+    // Set fetched data into todoArray
+    todoArray = loadedData
+
+    todoArray.forEach(item => {
+        // If that todo which clicked on it that's status is false, it changes status to true and vise versa
+        if (todoId === item.id) {
+            item.status = !item.status
+        }
+    })
+
+    // Refresh todo status in local storage
+    addToLocalStorage(todoArray)
+    addToDOM(todoArray)
+}
+
+
+
+// ---------- Clear all data form local storage and Dom
 function clearAllTodo() {
     localStorage.removeItem('todoData')
     todoArray = []
     addToDOM(todoArray)
     loadData()
 }
-
-
 
 
 window.addEventListener('load', loadData)
