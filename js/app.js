@@ -5,6 +5,20 @@ const todoContainer = document.getElementById('todoList')
 
 let todoArray = []
 
+function loadData() {
+    let data = localStorage.getItem('todoData')
+
+    if (data) {
+        let fetchData = JSON.parse(data)
+        todoArray = fetchData
+        console.log(fetchData);
+    } else {
+        todoArray = []
+        console.log('there is nothing here ve');
+    }
+}
+
+
 // Insert todo's into DOM and browser local storage 
 function insertTodo() {
 
@@ -44,5 +58,8 @@ function clearAllTodo() {
 }
 
 
+
+
+window.addEventListener('load', loadData)
 addButton.addEventListener('click', insertTodo)
 clearButton.addEventListener('click', clearAllTodo)
