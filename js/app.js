@@ -27,24 +27,32 @@ function loadData() {
 // Insert todo's into DOM and browser local storage 
 function insertTodo() {
 
-    let todoValue = input.value
+    // Define a variable for insert input value in it and delete any fake and whitespace from it
+    let todoValue = input.value.trim()
 
-    // Create a todo object to insert into array
-    let newTodoObject = {
-        id: todoArray.length + 1,
-        value: todoValue,
-        status: true
+
+    if (todoValue) {
+
+        // Create a todo object to insert into array
+        let newTodoObject = {
+            id: todoArray.length + 1,
+            value: todoValue.trim(),
+            status: false
+        }
+
+
+        // Add created object into todo's array
+        todoArray.push(newTodoObject)
+
+        // Add todo's array into local storage
+        addToLocalStorage(todoArray)
+
+        // Add todo list into DOM
+        addToDOM(todoArray)
+
+    } else {
+        alert('Should insert a valid value to create your todo list')
     }
-
-
-    // Add created object into todo's array
-    todoArray.push(newTodoObject)
-
-    // Add todo's array into local storage
-    addToLocalStorage(todoArray)
-
-    // Add todo list into DOM
-    addToDOM(todoArray)
 
 
     // Clear data from input
@@ -71,7 +79,7 @@ function addToDOM(todoArray) {
         newTodoTitle = document.createElement('label')
         newTodoTitle.innerHTML = todo.value
 
-        // Create complete/uncomplete button for todo
+        // Create complete/unComplete button for todo
         newTodoCompleteBtn = document.createElement('button')
         newTodoCompleteBtn.classList = 'btn btn-success'
         // Check complete button status which it's true or false to define this button value
@@ -79,7 +87,6 @@ function addToDOM(todoArray) {
             newTodoCompleteBtn.innerHTML = 'Complete'
         } else {
             newTodoCompleteBtn.innerHTML = 'UnComplete'
-
         }
 
         // Create delete button for todo
@@ -91,7 +98,6 @@ function addToDOM(todoArray) {
         newTodoLi.append(newTodoTitle, newTodoCompleteBtn, newTodoDeleteBtn)
         // Append li element ino ul which is a container for all todos
         todoContainer.append(newTodoLi)
-
 
     })
 }
